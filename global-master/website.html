@@ -84,7 +84,31 @@
             <div class="about">
               <div class="about--banner">
                 <h2>Map</h2>
-                
+                  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+                  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+                  
+                  <div id="map" style="height: 500px;"></div>
+                  <script>
+                    //Initialize map
+                    var map= L.map('map').setView([15.7835, -90.2308], 7);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap contributors' }).addTo(map);
+
+                    // Add volcanic markers 
+                    // HW- add as many volcanic markers as possible
+                    var volcanoes = [ 
+                    { name: "Volcán de Fuego", coords: [14.4745, -90.8808] }, 
+                    { name: "Pacaya", coords: [14.3819, -90.6016] },  
+                    ];
+
+                    //Add markers to the volcanoes
+                    volcanoes.forEach(function(volcano) 
+                    { 
+                      L.marker(volcano.coords).addTo(map) 
+                      .bindPopup("<b>" + volcano.name + "</b>") 
+                      .openPopup(); 
+                    });
+
+                  </script>
               </div>
             </div>
           </li>
