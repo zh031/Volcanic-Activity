@@ -93,17 +93,48 @@
                     var map= L.map('map').setView([15.7835, -90.2308], 7);
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap contributors' }).addTo(map);
 
+                    //custom icon 
+                    var greenIcon = new L.Icon
+                    ({
+                      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+                      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                      iconSize: [25, 41],
+                      iconAnchor: [12, 41],
+                      popupAnchor: [1, -34],
+                      shadowSize: [41, 41]
+                    });
+
+                    var redIcon = new L.Icon
+                    ({
+                      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                      iconSize: [25, 41],
+                      iconAnchor: [12, 41],
+                      popupAnchor: [1, -34],
+                      shadowSize: [41, 41]
+                    });
+
+                    var blueIcon = new L.Icon
+                    ({
+                      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+                      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                      iconSize: [25, 41],
+                      iconAnchor: [12, 41],
+                      popupAnchor: [1, -34],
+                      shadowSize: [41, 41]
+                    });
+
                     // Add volcanic markers 
                     // HW- add as many volcanic markers as possible
                     var volcanoes = [ 
-                    { name: "Volcán de Fuego", coords: [14.4745, -90.8808] }, 
-                    { name: "Pacaya", coords: [14.3819, -90.6016] },  
+                    { name: "Volcán de Fuego", coords: [14.4745, -90.8808], icon:blsueIcon}, 
+                    { name: "Pacaya", coords: [14.3819, -90.6016], icon :redIcon},  
                     ];
 
                     //Add markers to the volcanoes
                     volcanoes.forEach(function(volcano) 
                     { 
-                      L.marker(volcano.coords).addTo(map) 
+                      L.marker(volcano.coords,{icon:volcno.icon}).addTo(map) 
                       .bindPopup("<b>" + volcano.name + "</b>") 
                       .openPopup(); 
                     });
@@ -133,7 +164,7 @@
                         
                         <img src="assets/img/safety-tips.jpg" alt="Learn Safety Tips">
                       </div>
-                      <p class="slider--itemㅏ-title"> Learn Safety Tips</p>
+                      <p class="slider--item-title"> Learn Safety Tips</p>
                       <p class="slider--item-description">Learn how to stay safe during a volcanic eruption and first aid tips.</p>
                     </a>
                   </li>
