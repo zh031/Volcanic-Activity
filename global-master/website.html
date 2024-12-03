@@ -127,14 +127,14 @@
                     // Add volcanic markers 
                     // HW- add as many volcanic markers as possible
                     var volcanoes = [ 
-                    { name: "Volcán de Fuego", coords: [14.4745, -90.8808], icon:blsueIcon}, 
-                    { name: "Pacaya", coords: [14.3819, -90.6016], icon :redIcon},  
+                    { name: "Volcán de Fuego", coords: [14.4745, -90.8808], icon:blueIcon}, 
+                    { name: "Pacaya", coords: [14.3819, -90.6016], icon:redIcon},  
                     ];
 
                     //Add markers to the volcanoes
                     volcanoes.forEach(function(volcano) 
-                    { 
-                      L.marker(volcano.coords,{icon:volcno.icon}).addTo(map) 
+                    { s
+                      L.marker(volcano.coords,{icon:volcano.icon}).addTo(map) 
                       .bindPopup("<b>" + volcano.name + "</b>") 
                       .openPopup(); 
                     });
