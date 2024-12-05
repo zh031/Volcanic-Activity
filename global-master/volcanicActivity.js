@@ -51,12 +51,22 @@ async function fetchGuatemalaVolcanoData()
                 name:"Santiaguito", lat: 14.756, long: -91.563
             },
         ];
+        
 
         return volcanoes.some(volcano => {
         const distance = Math.sqrt(Math.pow(latitude - volcano.lat, 2) + Math.pow(longitude - volcano.lon, 2));
         return distance < 0.2;
         });
+    });   
+        //logging all the volcano events
+        console.log('found ${volcanoEvents.length} Events near Guatemala volcanoes');
+        volcanoEvents.forEach(event => {
+           console.log('Location: ${event.properties.place}');
+           console.log('Magnitude: ${event.properties.mag}');
+           console.log('Time: ${new Date(event.properties.time).toLocaleString()}');
+           console.log("---------------------------------------------------------");
+        });
 
-    });
+    
 
 }
