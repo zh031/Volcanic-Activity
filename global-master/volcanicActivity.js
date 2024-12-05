@@ -17,7 +17,9 @@ async function fetchGuatemalaVolcanoData() {
         .join("&");
     
     const apiUrl = `${baseUrl}&${queryString}`;
-
+    
+    const earthquakeContainer= document.getElementById('earthquake-data');
+    
     try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
@@ -28,10 +30,7 @@ async function fetchGuatemalaVolcanoData() {
         
         // Filter for Guatemala volcano region based on seismic activity
         const volcanoEvents = data.features.filter(event => {
-            const coords = event.geometry.coordinates;
-            const longitude = coords[0];
-            const latitude = coords[1];
-            
+            const [longitude,latitude] = event.geometry.coordinates;
             // Check proximity to key Guatemalan volcanoes (add more if needed)
             const volcanoes = [
                 { name: "Pacaya", lat: 14.381, lon: -90.601 },
@@ -45,17 +44,25 @@ async function fetchGuatemalaVolcanoData() {
                 );
                 return distance < 0.2; // Approx. 20 km radius
             });
-        });
 
-        // Log volcano events
-        console.log(`Found ${volcanoEvents.length} events near Guatemala volcanoes.`);
-        volcanoEvents.forEach(event => {
-            console.log(`Location: ${event.properties.place}`);
-            console.log(`Magnitude: ${event.properties.mag}`);
-            console.log(`Time: ${new Date(event.properties.time).toLocaleString()}`);
-            console.log("---------------------------");
         });
+        if (volcanoEvents===0) {
+            earthquakeContainer.innerHTML="<p> No significant earthquakes recorded near Guatemala recently </p>";
+        } else{
+            //displaying the filter result
+            earthquakeContainer.innerHTML= volcanoEvents.map(event=>`
+                <div class = "Earthquake-Events"> 
+                    <p><strong>Location: </strong>${event.properties.place}</p>
+                    <p><strong>Magnitude: </strong>${event.properties.mag}</p>
+                    <p><strong>Time: </strong>${new Date(event.properties.time).toLocaleString()}</p>
+                </div>
+            `).join("");
+        }
     } catch (error) {
         console.error("Error fetching or processing data:", error);
+        earthquakeContainer.innerHTML= "<p>Error loading earthquake data </p>"
     }
 }
+
+//calling the fucntion
+document.addEventListener("DOMContentLoaded",fetchGuatemalaVolcanoData);
