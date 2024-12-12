@@ -18,8 +18,9 @@ async function fetchGuatemalaVolcanoData() {
     
     const apiUrl = `${baseUrl}&${queryString}`;
     
-    const earthquakeContainer= document.getElementById('earthquake-data');
-    
+    const earthquakeContainer= document.getElementById('earthquakeContainer');
+    const earthquakeData= document.getElementById('earthquake-data');
+
     try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
