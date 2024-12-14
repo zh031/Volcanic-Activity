@@ -89,6 +89,7 @@
               <h2>Recent Earthquake Data</h2>
               <div id="earthquakeContainer">
                 <div id="earthquake-data">
+
                   
                 </div>
               </div>
@@ -234,8 +235,8 @@
           </li>
           <li class="l-section section">
             <div class="hire">
-              <h2>You want us to do</h2>
-              <!-- checkout formspree.io for easy form setup -->
+              <h2>Real Time Earthquake Data</h2>
+              <!-- checkout formspree.io for easy form setup 
               <form class="work-request">
                 <div class="work-request--options">
                   <span class="options-a">
@@ -316,6 +317,12 @@
                 <input type="submit" value="Send Request">
               </form>
             </div>
+          -->
+              <script src = "axios.min.js"></script>
+              <script src = "https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+              <div id="volcanoContainer">
+                <div id="volcanoData">
+            </div>
           </li>
         </ul>
       </div>
@@ -333,6 +340,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-2.2.4.min.js"><\/script>')</script>
 <script src="assets/js/functions-min.js"></script>
-<script src="volcanicActivity.js"></script>
+<script src="volcanoLocationMap.js"></script>
+<script src="volcanicActivities.js"></script>
 </body>
 </html>
