@@ -15,8 +15,47 @@ EruptionHistory$VEI = factor(EruptionHistory$VEI)
 View(EruptionHistory)
 EruptionHistory$Volcano = factor(EruptionHistory$Volcano)
 
-# opening sheet Fuego(06032018)
-FuegoWeather = read_xlsx(file.path(path,"WeatherData.xlsx"), sheet = "Fuego(06032018)")
+# opening all sheets
+FuegoWeather = read_xlsx(file.path(path,"WeatherData.xlsx"), sheet = "Fuego")
+PacayaWeather = read_xlsx(file.path(path,"WeatherData.xlsx"), sheet = "Pacaya")
+AcatenangoWeather = read_xlsx(file.path(path,"WeatherData.xlsx"), sheet = "Acatenango")
+
+# opening libraries
+library(caret)
+library(dplyr)
+library(lubridate)
+library(randomForest)
+
+# modifies date format
+FuegoWeather$Date = as.Date(as.character(FuegoWeather$Date), format = "%Y%m%d")
+
+#combines time with date (creates a new column)
+FuegoWeather$DateTime = as.POSIXct(paste(FuegoWeather$Date, FuegoWeather$Time_24h), format = "%Y-%m-%d %H")
+FuegoWeather$EruptionStarted = as.factor(FuegoWeather$EruptionStarted)
+FuegoWeather$Condition = as.factor(FuegoWeather$Condition)
+
+# Split data into training and testing set 
+set.seed(123)
+
+# using 80% of data to train the machine learning (checking model mechanism) 
+trainIndex = createDataPartition(FuegoWeather$EruptionStarted, p = 0.8, list = FALSE)
+trainData = FuegoWeather[trainIndex, ]
+# the minus sign uses the left 20% to test
+testData = FuegoWeather[-trainIndex, ]
+
+set.seed(123)
+#creating a random forest model in 5 fold data (creating model mechanism)
+model = train(EruptionStarted ~ ., data = trainData, method = "rf",
+              trControl = trainControl(method = "cv", number = 5), importance = TRUE)
+
+print(model)
+#testing
+predictions = predict(model, newData = testData)
+#identify if accurate ( compares with real output )
+confusionMatrix(predictions, testData$EruptionStarted)
+varImp(model)
+saveRDS(model, "eruption_prediction_model.rds")
+
 # changes Condition data to numerical data
 # states that inside data condition there are different categories or levels
 FuegoWeather$Condition = factor(FuegoWeather$Condition, 
