@@ -1,19 +1,110 @@
-// section transition styles
-.section
-  opacity: 0
-  visibility: hidden
-  transition: opacity .4s ease-in-out, visibility 0s .4s
+/* ----------------- SECTION + MAP + CARDS STYLING ----------------- */
 
-  &--is-active
-    opacity: 1
-    visibility: visible
-    z-index: 1
-    transition: opacity .4s ease-in-out .4s
+/* Section wrapper (active state) */
+.section--is-active {
+  padding: 60px 20px; /* space around content */
+  box-sizing: border-box;
+  min-height: auto;
+  overflow: visible; /* ensures map and cards are visible */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px; /* spacing between title, map, and cards */
+}
 
-  &--next
-    transform: translateY(-45px)
-    transition: transform .4s ease-in-out
+/* Optional: section headings */
+.section h2 {
+  margin-bottom: 25px;
+  font-size: 26px;
+  color: #fff;
+  text-align: center;
+}
 
-  &--prev
-    transform: translateY(45px)
-    transition: transform .4s ease-in-out
+/* Map container */
+#map-container {
+  width: 100%;
+  max-width: 1200px;
+  height: 500px; /* fixed height for Leaflet map */
+  margin: 0 auto; /* center map */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Volcano & Earthquake cards container */
+#volcanoContainer,
+#earthquakeContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* spacing between cards */
+  justify-content: center; /* center the cards */
+  padding: 20px 0;
+}
+
+/* Individual card styling */
+.data-card {
+  flex: 1 1 300px;
+  min-width: 250px;
+  max-width: 400px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.data-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.1);
+  border-color: #ff6b6b; /* highlight color */
+}
+
+/* Card headings */
+.data-card h4 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.data-card p {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+/* Progress bar inside card */
+.bar-container {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: #ff6b6b; /* adjust based on danger level if needed */
+  transition: width 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  #map-container {
+    height: 400px;
+  }
+}
+
+@media (max-width: 600px) {
+  #map-container {
+    height: 350px;
+  }
+  .data-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
